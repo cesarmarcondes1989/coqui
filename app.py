@@ -2,7 +2,7 @@ from flask import Flask, request, send_file
 from TTS.api import TTS
 import time
 
-# 🔥 Modelo mais natural e expressivo
+# Modelo com mais naturalidade
 MODEL = "tts_models/en/multi-dataset/your_tts"
 tts = TTS(model_name=MODEL, progress_bar=False)
 
