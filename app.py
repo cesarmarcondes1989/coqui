@@ -4,27 +4,20 @@ import os
 
 app = Flask(__name__)
 
-# Carrega modelo multilíngue do Coqui TTS
-tts = TTS(model_name="tts_models/multilingual/multi-dataset/your_model", progress_bar=False, gpu=False)
+# Modelo inglês, simples e confiável
+tts = TTS(model_name="tts_models/en/ljspeech/tacotron2-DDC", progress_bar=False, gpu=False)
 
 @app.route("/speak", methods=["GET"])
 def speak():
     try:
         text = request.args.get("text")
-        speaker = request.args.get("speaker", None)
-        language = request.args.get("language", "en")  # idioma padrão: inglês
 
         if not text:
             return jsonify({"error": "Missing 'text' parameter"}), 400
 
         output_path = "output.wav"
 
-        tts.tts_to_file(
-            text=text,
-            speaker=speaker,
-            language=language,
-            file_path=output_path
-        )
+        tts.tts_to_file(text=text, file_path=output_path)
 
         return send_file(output_path, mimetype="audio/wav")
 
