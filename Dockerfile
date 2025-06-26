@@ -5,7 +5,9 @@ RUN apt-get update && apt-get install -y \
     git \
     libsndfile1 \
     espeak-ng \
+    espeak-ng-data \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Define diretório de trabalho
 WORKDIR /app
