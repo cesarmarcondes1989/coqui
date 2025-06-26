@@ -3,22 +3,17 @@ from TTS.api import TTS
 import os
 
 app = Flask(__name__)
-
-# Modelo inglês, simples e confiável
-tts = TTS(model_name="tts_models/en/ljspeech/tacotron2-DDC", progress_bar=False, gpu=False)
+tts = TTS(model_name="tts_models/en/vctk/vits", progress_bar=False, gpu=False)
 
 @app.route("/speak", methods=["GET"])
 def speak():
     try:
         text = request.args.get("text")
-
         if not text:
             return jsonify({"error": "Missing 'text' parameter"}), 400
 
         output_path = "output.wav"
-
         tts.tts_to_file(text=text, file_path=output_path)
-
         return send_file(output_path, mimetype="audio/wav")
 
     except Exception as e:
